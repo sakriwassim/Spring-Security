@@ -29,7 +29,12 @@ public class SpringSecurityApplication {
     CommandLineRunner start(AccountService accountService) {
         return args -> {
             accountService.addNewRole(new AppRole(null, "USER"));
+            accountService.addNewRole(new AppRole(null, "ADMIN"));
+
             accountService.addNewUser(new AppUser(null, "user1", "123", new ArrayList<>()));
+            accountService.addNewUser(new AppUser(null, "user2", "123", new ArrayList<>()));
+            accountService.addNewUser(new AppUser(null, "user3", "123", new ArrayList<>()));
+            accountService.addNewUser(new AppUser(null, "user4", "123", new ArrayList<>()));
 
 
         };

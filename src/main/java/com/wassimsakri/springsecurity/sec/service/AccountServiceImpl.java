@@ -25,6 +25,17 @@ public class AccountServiceImpl implements AccountService {
 
 
     @Override
+    public AppUser loadUserByUsername(String username) {
+         return appUserRepository.findByUserName(username);
+    }
+
+    @Override
+    public AppRole getRoleByname(String rolename) {
+        return appRoleRepository.findByRoleName(rolename);
+    }
+
+
+    @Override
     public AppUser addNewUser(AppUser appUser) {
         String pwd = appUser.getPassword();
         appUser.setPassword(passwordEncoder.encode(pwd));
@@ -43,14 +54,6 @@ public class AccountServiceImpl implements AccountService {
         appUser.getAppRoles().add(appRole);
 
     }
-
-    @Override
-    public AppUser loadUserByUsername(String username) {
-
-        return appUserRepository.findByUserName(username);
-
-    }
-
     @Override
     public List<AppUser> listUsers() {
         return appUserRepository.findAll();
