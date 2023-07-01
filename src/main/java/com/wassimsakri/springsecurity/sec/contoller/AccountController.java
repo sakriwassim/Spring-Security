@@ -4,7 +4,6 @@ package com.wassimsakri.springsecurity.sec.contoller;
 import com.wassimsakri.springsecurity.sec.entity.AppRole;
 import com.wassimsakri.springsecurity.sec.entity.AppUser;
 import com.wassimsakri.springsecurity.sec.service.AccountService;
-import lombok.Data;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
