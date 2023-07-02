@@ -66,7 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.authorizeRequests().antMatchers(HttpMethod.POST,"/user/**").hasAuthority("ADMIN");
 //        http.authorizeRequests().antMatchers(HttpMethod.GET,"/user/**").hasAuthority("ADMIN");
 //        http.authorizeRequests().antMatchers(HttpMethod.GET,"/user/**").hasAuthority("USER");
-        http.authorizeRequests().antMatchers("/h2-console/**").permitAll();
+        http.authorizeRequests().antMatchers("/h2-console/**", "/refreshToken/**").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean()));
         http.addFilterBefore( new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
