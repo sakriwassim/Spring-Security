@@ -1,6 +1,5 @@
 package com.wassimsakri.springsecurity.sec.contoller;
 
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -11,10 +10,6 @@ import com.wassimsakri.springsecurity.sec.entity.AppRole;
 import com.wassimsakri.springsecurity.sec.entity.AppUser;
 import com.wassimsakri.springsecurity.sec.service.AccountService;
 import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static com.wassimsakri.springsecurity.sec.JWTUtil.SECRET;
 
 @RestController
 public class AccountController {
@@ -64,7 +57,7 @@ public class AccountController {
 
     @PostMapping(path = "/addRoleToUser")
     public void addRoleToUser(@RequestBody RoleUserFrom roleUserFrom){
-          accountService.addRoleToUser(roleUserFrom.getUserName(),roleUserFrom.getRoleName());
+        accountService.addRoleToUser(roleUserFrom.getUserName(),roleUserFrom.getRoleName());
     }
     @GetMapping(path = "/refreshToken")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws Exception{

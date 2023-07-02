@@ -20,8 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.wassimsakri.springsecurity.sec.JWTUtil.SECRET;
-
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter  {
     private AuthenticationManager authenticationManager;
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager){

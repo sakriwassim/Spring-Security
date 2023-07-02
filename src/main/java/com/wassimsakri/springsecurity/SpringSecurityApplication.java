@@ -21,7 +21,6 @@ public class SpringSecurityApplication {
         SpringApplication.run(SpringSecurityApplication.class, args);
     }
 
-
     @Bean
     PasswordEncoder passwordEncoder() {
 
@@ -44,10 +43,6 @@ public class SpringSecurityApplication {
             accountService.addRoleToUser("user2","USER");
             accountService.addRoleToUser("user3","USER");
             accountService.addRoleToUser("user4","USER");
-
-
-
-
         };
     }
 
