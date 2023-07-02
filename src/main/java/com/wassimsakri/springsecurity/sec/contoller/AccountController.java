@@ -6,6 +6,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wassimsakri.springsecurity.sec.JWTUtil;
 import com.wassimsakri.springsecurity.sec.entity.AppRole;
 import com.wassimsakri.springsecurity.sec.entity.AppUser;
 import com.wassimsakri.springsecurity.sec.service.AccountService;
@@ -18,8 +19,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.wassimsakri.springsecurity.sec.JWTUtil.SECRET;
 
 @RestController
 public class AccountController {
@@ -69,7 +73,7 @@ public class AccountController {
         if(auhToken!=null && auhToken.startsWith("Bearer ")){
             try {
                 String jwt=auhToken.substring(7);
-                Algorithm algorithm = Algorithm.HMAC256("mySecret1234");
+                Algorithm algorithm = Algorithm.HMAC256(JWTUtil.SECRET);
                 JWTVerifier jwtVerifier = JWT.require(algorithm).build();
                 DecodedJWT decodedJWT = jwtVerifier.verify(jwt);
                 String username= decodedJWT.getSubject();
@@ -94,4 +98,8 @@ public class AccountController {
 
     }
 
+    @GetMapping(path = "/profile")
+    public AppUser profile(Principal principal){
+        return accountService.loadUserByUsername(principal.getName());
+    }
 }

@@ -3,6 +3,7 @@ package com.wassimsakri.springsecurity.sec.filters;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wassimsakri.springsecurity.sec.JWTUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static com.wassimsakri.springsecurity.sec.JWTUtil.SECRET;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter  {
     private AuthenticationManager authenticationManager;
@@ -39,17 +42,17 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         System.out.println("successfulAuthentication");
         User user =(User) authResult.getPrincipal();
 
-        Algorithm algorithm = Algorithm.HMAC256("mySecret1234");
+        Algorithm algorithm = Algorithm.HMAC256(JWTUtil.SECRET);
         String jwtAccessToken = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis()+5*60*1000))
+                .withExpiresAt(new Date(System.currentTimeMillis()+ JWTUtil.EXPIRE_ACCESS_TOKEN))
                 .withIssuer(request.getRequestURI().toString())
                 .withClaim("roles", user.getAuthorities().stream().map(ga -> ga.getAuthority()).collect(Collectors.toList()))
                 .sign(algorithm);
 
         String jwtRefreshTokenToken = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis()+15*60*1000))
+                .withExpiresAt(new Date(System.currentTimeMillis()+JWTUtil.REFRESH_ACCESS_TOKEN))
                 .withIssuer(request.getRequestURI().toString())
                 .sign(algorithm);
 
