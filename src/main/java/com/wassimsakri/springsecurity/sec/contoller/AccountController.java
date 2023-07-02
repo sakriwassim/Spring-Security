@@ -4,6 +4,7 @@ package com.wassimsakri.springsecurity.sec.contoller;
 import com.wassimsakri.springsecurity.sec.entity.AppRole;
 import com.wassimsakri.springsecurity.sec.entity.AppUser;
 import com.wassimsakri.springsecurity.sec.service.AccountService;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,11 +19,13 @@ public class AccountController {
     }
 
     @GetMapping(path ="/user")
+    @PostAuthorize("hasAuthority('USER')")
     public List<AppUser> appUsers() {
         return accountService.listUsers();
     }
 
     @PostMapping(path = "/user")
+    @PostAuthorize("hasAuthority('ADMIN')")
     public AppUser saveUser(@RequestBody AppUser appUser){
         return  accountService.addNewUser(appUser);
     }
@@ -38,6 +41,7 @@ public class AccountController {
     }
 
     @PostMapping(path = "/role")
+    @PostAuthorize("hasAuthority('ADMIN')")
     public AppRole saveRole(@RequestBody AppRole appRole){
         return  accountService.addNewRole(appRole);
     }

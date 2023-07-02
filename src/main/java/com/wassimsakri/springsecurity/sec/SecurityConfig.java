@@ -63,9 +63,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.headers().frameOptions().disable(); // Allow rendering of frames
 //        http.formLogin(); // Enable form-based login
-        http.authorizeRequests().antMatchers(HttpMethod.POST,"/user/**").hasAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(HttpMethod.GET,"/user/**").hasAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(HttpMethod.GET,"/user/**").hasAuthority("USER");
+//        http.authorizeRequests().antMatchers(HttpMethod.POST,"/user/**").hasAuthority("ADMIN");
+//        http.authorizeRequests().antMatchers(HttpMethod.GET,"/user/**").hasAuthority("ADMIN");
+//        http.authorizeRequests().antMatchers(HttpMethod.GET,"/user/**").hasAuthority("USER");
         http.authorizeRequests().antMatchers("/h2-console/**").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean()));
